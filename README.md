@@ -17,7 +17,7 @@ This step allows you to post content to Confluence.
 * [confluence.png](/confluence.png) - Confluence logo
 
 # How it works
-This step posts content to Confluence. By default, it posts content as the **storage** type.
+This step posts content to Confluence. By default, it posts content as the **storage** type. It uses [this](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-post) API call.
 
 
 # Installation
