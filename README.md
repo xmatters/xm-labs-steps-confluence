@@ -19,13 +19,13 @@ This step allows you to post content to Confluence.
 # How it works
 This step posts content to Confluence. By default, it posts content as the **storage** type. It uses [this](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-post) API call.
 
+The Post Content step can be used for both making pages and comments, as well as other types.
 
 # Installation
 
 ## Confluence Setup
 1. Create an API Token [here](https://id.atlassian.com/manage-profile/security/api-tokens), this will be used in xMatters later.
 2. Find the Key of the space you want to use. This can be found in the URL after `/spaces/` or in the space's settings.
-
 
 
 ## xMatters Setup
@@ -36,13 +36,14 @@ This step posts content to Confluence. By default, it posts content as the **sto
 
 
 ## Usage
-The **Confluence - Post Content** step is now available in your custom steps. So navigate to the appropriate canvas so you can add the step there. If you'd like to experiment with it, the **Post Content** workflow has a canvas that can be triggered via HTTP call. 
+The **Confluence - Create Page**, **Confluence - Post Comment**, and **Confluence - Get Content** steps are now available in your custom steps. So navigate to the appropriate canvas so you can add the step there. If you'd like to experiment with it, the **Post Content** workflow has a canvas that can be triggered via HTTP call. 
+
+## Confluence - Create Page [/wiki/rest/api/content](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-post)
 
 ### Inputs
 | Name  | Required? | Min | Max | Help Text | Default Value | Multiline |
 | ----- | ----------| --- | --- | --------- | ------------- | --------- |
 | Title | Yes | 0 | 255 | Title of content | | No |
-| Type | Yes | 0 | 2000 | The type of the new content. Custom content types defined by apps are also supported. Typical values: page, blogpost, comment, attachment | page | No |
 | Space Key | Yes | 0 | 2000 | Key of Space. Found in Space Settings or in the URL. | | No |
 | Body | Yes | 0 | 20000 | The body of the new content. | | Yes |
 | Status | No | 0 | 2000 | The status of the new content. | | No |
@@ -57,7 +58,49 @@ An example of using the `Raw Body` input would be: `{"storage": {"value":"hello 
 | Name | Description |
 | ---- | ----------  |
 | Success | Success of step, either (true) or (false) |
+| json | JSON output from API Call |
+| ID | ID of content |
 
+
+## Confluence - Get Page [/wiki/rest/api/content/{id}](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-id-get) or [/wiki/rest/api/content](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-get)
+
+### Inputs
+
+| Name  | Required? | Min | Max | Help Text | Default Value | Multiline |
+| ----- | ----------| --- | --- | --------- | ------------- | --------- |
+| ID | No | 0 | 20000 | The ID of the content to be returned. If this is unknown, use the Title and Space inputs. | | Yes |
+| Space | No | 0 | 2000 | Key of Space. Found in Space Settings or in the URL. | | No |
+| Title | No | 0 | 255 | Title of content | | No |
+
+Either the ID or both Space and Title inputs are required for the step to succeed.
+
+### Outputs
+
+| Name | Description |
+| ---- | ----------  |
+| Success | Success of step, either (true) or (false) |
+| json | JSON output from API Call |
+| URL | URL to content |
+| ID | ID of content |
+| body | body of content |
+
+
+## Confluence - Post Comment [/wiki/rest/api/content](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-post)
+
+### Inputs
+
+| Name  | Required? | Min | Max | Help Text | Default Value | Multiline |
+| ----- | ----------| --- | --- | --------- | ------------- | --------- |
+| Parent ID | Yes | 0 | 20000 | ID of content that comment is on | | Yes |
+| Body | Yes | 0 | 255 | Comment Body | | No |
+
+### Outputs
+
+| Name | Description |
+| ---- | ----------  |
+| Success | Success of step, either (true) or (false) |
+| json | JSON output from API Call |
+| ID | ID of comment |
 
 
 ## Example
