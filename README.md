@@ -38,6 +38,8 @@ The Post Content step can be used for both making pages and comments, as well as
 ## Usage
 The **Confluence - Create Page**, **Confluence - Post Comment**, and **Confluence - Get Content** steps are now available in your custom steps. So navigate to the appropriate canvas so you can add the step there. If you'd like to experiment with it, the **Post Content** workflow has a canvas that can be triggered via HTTP call. 
 
+Confluence supports markdown. It can be used in the **Body** input when creating a new page. For more information on the syntax check out [this](https://confluence.atlassian.com/doc/confluence-wiki-markup-251003035.html) document.
+
 ## Confluence - Create Page [/wiki/rest/api/content](https://developer.atlassian.com/cloud/confluence/rest/#api-api-content-post)
 
 ### Inputs
